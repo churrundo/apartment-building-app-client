@@ -4,7 +4,7 @@ let baseUrl = process.env.REACT_APP_ENV === 'production'
     ? process.env.REACT_APP_SERVER_URL
     : 'http://localhost:5005';
 
-
+console.log(baseUrl);
 const service = axios.create({
     baseURL: baseUrl,
     timeout: 10000
