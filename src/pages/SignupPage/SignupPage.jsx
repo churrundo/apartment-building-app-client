@@ -19,7 +19,7 @@ function SignupPage() {
     e.preventDefault();
     // Create an object representing the request body
     const requestBody = { email, password, name };
-
+    console.log(authService.baseUrl)
     // Send a request to the server using axios
     /* 
     const authToken = localStorage.getItem("authToken");
