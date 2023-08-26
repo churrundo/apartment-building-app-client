@@ -19,7 +19,6 @@ function SignupPage() {
     e.preventDefault();
     // Create an object representing the request body
     const requestBody = { email, password, name };
-    console.log(authService.baseUrl)
     // Send a request to the server using axios
     /* 
     const authToken = localStorage.getItem("authToken");
@@ -45,6 +44,7 @@ function SignupPage() {
       });
   };
 
+  console.log(authService.baseUrl)
   return (
     <div className="SignupPage">
       <h1>Sign Up</h1>
