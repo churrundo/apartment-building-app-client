@@ -4,7 +4,6 @@ import axios from 'axios';
 //     ? process.env.REACT_APP_SERVER_URL
 //     : 'http://localhost:5005';
 console.log(process.env.REACT_APP_ENV)
-console.log(process.env.REACT_APP_SERVER_URL)
 let baseUrl = 'https://cute-teal-ladybug-yoke.cyclic.cloud'
 
 console.log(baseUrl);
