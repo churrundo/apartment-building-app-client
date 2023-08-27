@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-// let baseUrl = process.env.REACT_APP_ENV === 'production'
-//     ? process.env.REACT_APP_SERVER_URL
-//     : 'http://localhost:5005';
+let baseUrl = process.env.REACT_APP_ENV === 'production'
+    ? process.env.REACT_APP_SERVER_URL
+    : 'http://localhost:5005';
 console.log(process.env.REACT_APP_ENV)
-let baseUrl = 'https://cute-teal-ladybug-yoke.cyclic.cloud'
+//let baseUrl = 'https://cute-teal-ladybug-yoke.cyclic.cloud'
 
 console.log(baseUrl);
 const service = axios.create({
@@ -18,7 +18,7 @@ service.interceptors.request.use((config) => {
     if(storedToken) {
         config.headers = { Authorization: `Bearer ${storedToken}`}
     }
-    
+
     return config
 })
 
