@@ -18,6 +18,7 @@ service.interceptors.request.use((config) => {
     if(storedToken) {
         config.headers = { Authorization: `Bearer ${storedToken}`}
     }
+    
     return config
 })
 
