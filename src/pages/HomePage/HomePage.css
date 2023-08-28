@@ -60,3 +60,23 @@
     color: white;
     text-align: center;
 }
+
+@media (max-width: 768px) { /* Adjust this value based on your design's breakpoint */
+    .homepage-header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cta-buttons {
+        margin-top: 10px;
+    }
+
+    .homepage-main h2 {
+        font-size: 24px; /* Decrease headline size for mobile */
+    }
+
+    .homepage-main p {
+        text-align: center;
+        padding: 0 15px; /* Give some padding to the sides for better readability */
+    }
+}
