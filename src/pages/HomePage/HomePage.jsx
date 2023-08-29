@@ -14,9 +14,9 @@ function HomePage() {
             </header>
             
             <main className="homepage-main">
-                <h2>Welcome to Apartment Admin</h2>
+                <h2>Apartment Admin</h2>
                 <p>
-                    A platform for apartment neighbors to democratically administer 
+                    This is a platform meant for apartment neighbors to democratically administer 
                     their community. Sign up to participate or log in if you're already a member.
                 </p>
             </main>
