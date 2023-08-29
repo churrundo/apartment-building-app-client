@@ -1,0 +1,11 @@
+.polls {
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: calc(100vh - 60px);
+}
+
+.polls h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
