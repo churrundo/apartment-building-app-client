@@ -10,9 +10,11 @@ function Navbar() {
 
   return (
     <nav>
-      <Link to="/">
-        <button>Home</button>
-      </Link>
+      {isLoggedIn ? (
+        <Link to="/dashboard">Dashboard</Link>
+      ) : (
+        <Link to="/">Home</Link>
+      )}
 
       {isLoggedIn && (
         <>
