@@ -1,30 +1,43 @@
-.signup-container {
+.SignupPage {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100%;
     background-color: #f4f4f4;
 }
 
-.signup-form {
+.SignupPage h1 {
+    margin:30px;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.SignupPage form {
     background: #fff;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     width: 100%;
-    max-width: 400px;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
 }
 
-.signup-form input {
-    width: 100%;
+.SignupPage form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.SignupPage form input {
+    width: auto;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-.signup-form button {
+.SignupPage form button {
     width: 100%;
     padding: 10px;
     background-color: #007BFF;
@@ -35,21 +48,19 @@
     margin-top: 10px;
 }
 
-.signup-form button:hover {
-    background-color: #0056b3;
+.SignupPage .error-message {
+    color: red;
+    margin-top: 10px;
 }
 
 @media (max-width: 375px) {
-    .login-form, .signup-form {
+    .SignupPage form {
+        width:90%;
         padding: 15px;
     }
 
-    .login-form input, .signup-form input {
-        padding: 8px;
-        font-size: 14px;
-    }
-
-    .login-form button, .signup-form button {
+    .SignupPage form input, 
+    .SignupPage form button {
         padding: 8px;
         font-size: 14px;
     }

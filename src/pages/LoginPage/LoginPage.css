@@ -1,30 +1,43 @@
-.login-container {
+.LoginPage {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100%;
     background-color: #f4f4f4;
 }
 
-.login-form {
+.LoginPage h1 {
+    margin:30px;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.LoginPage form {
     background: #fff;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     width: 100%;
-    max-width: 400px;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
 }
 
-.login-form input {
-    width: 100%;
+.LoginPage form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.LoginPage form input {
+    width: auto;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-.login-form button {
+.LoginPage form button {
     width: 100%;
     padding: 10px;
     background-color: #007BFF;
@@ -35,21 +48,19 @@
     margin-top: 10px;
 }
 
-.login-form button:hover {
-    background-color: #0056b3;
+.LoginPage .error-message {
+    color: red;
+    margin-top: 10px;
 }
 
 @media (max-width: 375px) {
-    .login-form, .signup-form {
+    .LoginPage form {
+        width:90%;
         padding: 15px;
     }
 
-    .login-form input, .signup-form input {
-        padding: 8px;
-        font-size: 14px;
-    }
-
-    .login-form button, .signup-form button {
+    .LoginPage form input, 
+    .LoginPage form button {
         padding: 8px;
         font-size: 14px;
     }
