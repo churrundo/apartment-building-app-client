@@ -1,5 +1,5 @@
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
 
@@ -7,37 +7,45 @@ function Navbar() {
   // Subscribe to the AuthContext to gain access to
   // the values from AuthContext.Provider's `value` prop
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
-
+  const location = useLocation();
   return (
     <nav>
-      <Link to="/">
-        <button>Home</button>
-      </Link>
+      <h1>Apartment Admin</h1>
 
       {isLoggedIn && (
-        <>
-          <button onClick={logOutUser}>Logout</button>
-
-          <Link to="/profile">
-            <button>Profile</button>
-            {/* <img src="https://picsum.photos/id/402/200/300" style={{ width: 50, height: 50, borderRadius: 25}} alt="profile" /> */}
+        <div className="NavButtons">
+          {location.pathname !== "/" ? (
+            <Link to="/" className="linkButton">
+              Home
+            </Link>
+          ) : null}
+          <Link to="/dashboard" className="linkButton">
+            Dashboard
           </Link>
-
+          <Link to="/profile" className="linkButton">
+            Profile
+          </Link>
+          <Link onClick={logOutUser} className="linkButton">
+            Logout
+          </Link>
           <span>{user && user.name}</span>
-        </>
+        </div>
       )}
 
       {!isLoggedIn && (
-        <>
-          <Link to="/signup">
-            {" "}
-            <button>Sign Up</button>{" "}
+        <div className="NavButtons">
+        {location.pathname !== "/" ? (
+            <Link to="/" className="linkButton">
+              Home
+            </Link>
+          ) : null}
+          <Link to="/signup" className="linkButton">
+            Sign Up
           </Link>
-          <Link to="/login">
-            {" "}
-            <button>Login</button>{" "}
+          <Link to="/login" className="linkButton">
+            Login
           </Link>
-        </>
+        </div>
       )}
     </nav>
   );

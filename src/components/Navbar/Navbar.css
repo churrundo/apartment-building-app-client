@@ -1,6 +1,6 @@
 nav {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     background-color: #333;
     padding: 10px 20px;
@@ -8,22 +8,25 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
+    color: white;
+    font-size: x-large;
 }
 
-nav a,
-nav button {
+nav a.linkButton {
+    display: inline-block;
     margin: 0 10px;
     padding: 4px 8px;
     border: none;
     background-color: #4CAF50;
     color: #fff;
+    font-size: 12pt;
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
     transition: background-color 0.3s;
 }
 
-nav button:hover {
+nav a.linkButton:hover {
     background-color: #45a049;
 }
 

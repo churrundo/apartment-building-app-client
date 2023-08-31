@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
@@ -9,19 +9,27 @@ import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import ComplaintsPage from "./pages/ComplaintsPage/ComplaintsPage";
 import AnnouncementsPage from "./pages/AnnouncementsPage/AnnouncementsPage";
 import PollsPage from "./pages/PollsPage/PollsPage";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
 
 function App() {
-  const location = useLocation();
   return (
     <div className="App">
-      {location.pathname !== "/" && <Navbar />}
+      {<Navbar />}
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route
+          path="/dashboard"
+          element={
+            <IsPrivate>
+              <DashboardPage />
+            </IsPrivate>
+          }
+        />
         <Route
           path="/profile"
           element={
@@ -47,14 +55,6 @@ function App() {
           }
         />
         <Route
-          path="/dashboard"
-          element={
-            <IsPrivate>
-              <DashboardPage />
-            </IsPrivate>
-          }
-        />
-        <Route
           path="/complaints"
           element={
             <IsPrivate>
@@ -77,7 +77,8 @@ function App() {
               <PollsPage />
             </IsPrivate>
           }
-        />{" "}
+        />
+        <Route path="/not-found" element={<NotFoundPage />} />
       </Routes>
     </div>
   );

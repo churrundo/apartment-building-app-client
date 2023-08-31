@@ -5,20 +5,18 @@ import './HomePage.css';
 function HomePage() {
     return (
         <div className="homepage-container">
-            <header className="homepage-header">
-                <h1>Apartment Admin</h1>
-                <div className="cta-buttons">
-                    <Link to="/signup" className="cta-signup">Sign Up</Link>
-                    <Link to="/login" className="cta-login">Log In</Link>
-                </div>
-            </header>
-            
+                    
             <main className="homepage-main">
                 <h2>Apartment Admin</h2>
                 <p>
                     This is a platform meant for apartment neighbors to democratically administer 
                     their community. Sign up to participate or log in if you're already a member.
                 </p>
+
+                <div className="cta-buttons">
+                    <Link to="/signup" className="cta-signup">Sign Up</Link>
+                    <Link to="/login" className="cta-login">Log In</Link>
+                </div>
             </main>
             
             <footer className="homepage-footer">
