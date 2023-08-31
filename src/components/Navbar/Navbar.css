@@ -1,49 +1,47 @@
-.navbar {
+nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
-    padding: 10px 20px;
     background-color: #333;
-    color: #fff;
+    padding: 10px 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
-.navbar .logo {
-    font-weight: bold;
-    font-size: 24px;
+nav a,
+nav button {
+    margin: 0 10px;
+    padding: 4px 8px;
+    border: none;
+    background-color: #4CAF50;
+    color: #fff;
+    border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
 }
 
-.navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 15px;
+nav button:hover {
+    background-color: #45a049;
 }
 
-.navbar ul li {
-    cursor: pointer;
+nav span {
+    color: #fff;
+    margin-left: 10px;
 }
 
-.navbar ul li:hover {
-    color: #f4f4f4;
-}
-
-.navbar ul li.active {
-    font-weight: bold;
-    border-bottom: 2px solid #fff;
-}
-
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        align-items: start;
+/* Mobile devices */
+@media (max-width: 375px) {
+    nav {
+        justify-content: space-between;
+        align-items: center;
     }
 
-    .navbar ul {
-        margin-top: 10px;
-        gap: 10px;
+    nav a,
+    nav button,
+    nav span {
+        margin: 5px 0;
     }
 }
