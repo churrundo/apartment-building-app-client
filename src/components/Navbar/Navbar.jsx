@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/auth.context";
 function Navbar() {
   // Subscribe to the AuthContext to gain access to
   // the values from AuthContext.Provider's `value` prop
-  const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
+  const { isLoggedIn, logOutUser } = useContext(AuthContext);
   const location = useLocation();
   return (
     <nav>
@@ -28,13 +28,12 @@ function Navbar() {
           <Link onClick={logOutUser} className="linkButton">
             Logout
           </Link>
-          <span>{user && user.name}</span>
         </div>
       )}
 
       {!isLoggedIn && (
         <div className="NavButtons">
-        {location.pathname !== "/" ? (
+          {location.pathname !== "/" ? (
             <Link to="/" className="linkButton">
               Home
             </Link>
