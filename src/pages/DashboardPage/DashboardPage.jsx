@@ -17,6 +17,7 @@ function DashboardPage() {
                 </section>
                 <section className="ongoing-polls">
                     <h2>Ongoing Polls</h2>
+                    <a href='/polls'>see all</a>
                     {/* List of ongoing polls */}
                 </section>
             </div>

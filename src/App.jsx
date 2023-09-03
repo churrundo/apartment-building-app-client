@@ -9,6 +9,7 @@ import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import ComplaintsPage from "./pages/ComplaintsPage/ComplaintsPage";
 import AnnouncementsPage from "./pages/AnnouncementsPage/AnnouncementsPage";
 import PollsPage from "./pages/PollsPage/PollsPage";
+import NewPollForm from "./pages/NewPollForm/NewPollForm";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 import Navbar from "./components/Navbar/Navbar";
@@ -75,6 +76,14 @@ function App() {
           element={
             <IsPrivate>
               <PollsPage />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/new-poll"
+          element={
+            <IsPrivate>
+              <NewPollForm />
             </IsPrivate>
           }
         />
