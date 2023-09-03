@@ -5,7 +5,7 @@ const pollService = {
     createPoll : (formData)=> service.post('/api/polls', formData),
     getPoll: (pollId) => service.get(`/api/polls/${pollId}`),
     updatePoll: (pollId, formData) => service.put(`/api/polls/${pollId}`, formData),
-    vote: (pollId, optionId) => service.post(`/api/polls/${pollId}/vote`, { optionId }),
+    vote: (pollId, optionId, userId) => service.post(`/api/polls/${pollId}/vote`, { optionId, userId }),
     deletePoll: (pollId) => service.delete(`/api/polls/${pollId}`),
 }
 

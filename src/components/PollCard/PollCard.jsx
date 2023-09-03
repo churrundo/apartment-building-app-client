@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import pollService from "../../services/polls.service";
+import { AuthContext } from "../../context/auth.context";
 import "./PollCard.css";
 
 function PollCard({ poll }) {
   const [currentPoll, setCurrentPoll] = useState(poll);
+  const { user } = useContext(AuthContext);
 
-  //if (!currentPoll || !currentPoll.options) return null;
-
+  
   const totalVotes = currentPoll.options.reduce(
     (acc, option) => acc + option.votes,
     0
@@ -14,15 +15,19 @@ function PollCard({ poll }) {
 
   const handleVote = async (optionId) => {
     try {
-      const response = await pollService.vote(poll._id, optionId);
-      
+      const userId = user._id;
+      console.log(userId);
+      const response = await pollService.vote(poll._id, optionId, userId);
+
       // Check if the response has the needed properties.
-      if(response && response.data.options) {
-          setCurrentPoll(response.data);
+      if (response && response.data.options) {
+        setCurrentPoll(response.data);
       } else {
-          console.error("Received unexpected poll structure from server:", response);
+        console.error(
+          "Received unexpected poll structure from server:",
+          response
+        );
       }
-      
     } catch (error) {
       console.error("Error voting:", error);
     }
