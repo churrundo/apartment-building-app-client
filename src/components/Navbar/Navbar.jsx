@@ -14,11 +14,6 @@ function Navbar() {
 
       {isLoggedIn && (
         <div className="NavButtons">
-          {location.pathname !== "/" ? (
-            <Link to="/" className="linkButton">
-              Home
-            </Link>
-          ) : null}
           <Link to="/dashboard" className="linkButton">
             Dashboard
           </Link>
