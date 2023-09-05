@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import {AuthContext} from "../../context/auth.context"
 import pollService from "../../services/polls.service";
 import "./NewPollForm.css";
 
@@ -7,8 +8,9 @@ function NewPollForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [options, setOptions] = useState(["", ""]);
-
   const navigate = useNavigate();
+  const {user} = useContext(AuthContext);
+  const userId = user._id;
 
   const handleAddOption = () => {
     setOptions([...options, ""]);
@@ -33,6 +35,7 @@ function NewPollForm() {
       title,
       description,
       options,
+      createdBy: userId,
     };
     console.log(formData);
     await pollService.createPoll(formData);

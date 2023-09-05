@@ -20,6 +20,10 @@
     align-items: center;
     margin-top: 10px;
   }
+
+  .winning-option {
+    background-color: #88e788;
+  }
   
   .option button {
     background-color: #007bff;

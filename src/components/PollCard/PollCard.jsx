@@ -7,7 +7,6 @@ function PollCard({ poll }) {
   const [currentPoll, setCurrentPoll] = useState(poll);
   const { user } = useContext(AuthContext);
 
-  
   const totalVotes = currentPoll.options.reduce(
     (acc, option) => acc + option.votes,
     0
@@ -33,13 +32,45 @@ function PollCard({ poll }) {
     }
   };
 
+  const handleClosePoll = async (pollId) => {
+    try {
+      const userId = user._id;
+      await pollService.closePoll(pollId, userId);
+
+      const updatedPoll = { ...currentPoll, status: "Closed" };
+      setCurrentPoll(updatedPoll);
+    } catch (error) {
+      console.error("Error closing poll:", error);
+    }
+  };
+
+  const getWinningOptionId = () => {
+    let maxVotes = -1;
+    let winningOptionId = null;
+
+    currentPoll.options.forEach(option => {
+      if (option.votes > maxVotes) {
+        maxVotes = option.votes;
+        winningOptionId = option._id;
+      }
+    });
+
+    return winningOptionId;
+  };
+
+  const winningOptionId = getWinningOptionId();
+
   return (
     <div className="poll-card">
       <h2>{currentPoll.title}</h2>
       <p>{currentPoll.description}</p>
+
       <div className="options-container">
         {currentPoll.options.map((option) => (
-          <div key={option._id} className="option">
+          <div
+            key={option._id}
+            className={`option ${option._id === winningOptionId && currentPoll.status === "Closed" ? 'winning-option' : ''}`}
+          >
             <span>{option.optionText}</span>
             <span>
               {totalVotes === 0
@@ -47,10 +78,19 @@ function PollCard({ poll }) {
                 : ((option.votes / totalVotes) * 100).toFixed(2)}
               %
             </span>
-            <button onClick={() => handleVote(option._id)}>Vote</button>
+            {currentPoll.status === "Open" ? (
+              <button onClick={() => handleVote(option._id)}>Vote</button>
+            ) : (
+              <span>Closed</span>
+            )}
           </div>
         ))}
       </div>
+      {currentPoll.createdBy === user._id && currentPoll.status === "Open" && (
+        <button onClick={() => handleClosePoll(currentPoll._id)}>
+          Close Poll
+        </button>
+      )}
     </div>
   );
 }
