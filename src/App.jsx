@@ -10,6 +10,7 @@ import ComplaintsPage from "./pages/ComplaintsPage/ComplaintsPage";
 import AnnouncementsPage from "./pages/AnnouncementsPage/AnnouncementsPage";
 import PollsPage from "./pages/PollsPage/PollsPage";
 import NewPollForm from "./pages/NewPollForm/NewPollForm";
+import NewAnnouncementForm from "./pages/NewAnnouncementForm/NewAnnouncementForm"
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 import Navbar from "./components/Navbar/Navbar";
@@ -84,6 +85,14 @@ function App() {
           element={
             <IsPrivate>
               <NewPollForm />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/new-announcement"
+          element={
+            <IsPrivate>
+              <NewAnnouncementForm />
             </IsPrivate>
           }
         />
