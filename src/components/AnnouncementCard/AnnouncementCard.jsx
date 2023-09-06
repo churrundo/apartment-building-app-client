@@ -84,10 +84,10 @@ function AnnouncementCard({ announcement, refreshData }) {
           {isEditMode ? (
             <>
               <button onClick={handleUpdate}>Update</button>
-              <button onClick={() => setIsEditMode(false)}>Cancel</button>
+              <button onClick={() => handleEdit()}>Cancel</button>
             </>
           ) : (
-            <button onClick={() => setIsEditMode(true)}>Edit</button>
+            <button onClick={() => handleEdit()}>Edit</button>
           )}
           <button onClick={handleDelete}>Delete</button>
         </div>
