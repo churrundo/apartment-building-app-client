@@ -29,6 +29,7 @@ function AnnouncementsPage() {
     <div className="announcements">
       <h1>Latest Announcements</h1>
       <div className="announcement-list">
+      <Link to="/new-announcement">Create new announcement...</Link>
         {announcements && announcements.length > 0 ? (
           announcements.map((announcement) => (
             <AnnouncementCard
@@ -42,7 +43,6 @@ function AnnouncementsPage() {
             <p>Nothing to show!</p>
           </div>
         )}
-        <Link to="/new-announcement">Create new announcement...</Link>
       </div>
     </div>
   );
