@@ -2,52 +2,26 @@ import "./SignupPage.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
-import buildingService from "../../services/building.service";
 
 function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const [buildingName, setBuildingName] = useState("");
-  const [buildingAddress, setBuildingAddress] = useState("");
-  const [totalApartments, setTotalApartments] = useState("");
-
-  const [isNewBuilding, setIsNewBuilding] = useState(false);
 
   const navigate = useNavigate();
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
   const handleName = (e) => setName(e.target.value);
-  const handleBuildingName = (e) => setBuildingName(e.target.value);
-  const handleBuildingAddress = (e) => setBuildingAddress(e.target.value);
-  const handleTotalApartments = (e) => setTotalApartments(e.target.value);
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
-    const userRequestBody = { email, password, name };
-    const buildingRequestBody = {
-      name: buildingName,
-      address: buildingAddress,
-      totalApartments,
-    };
+    const requestBody = { email, password, name };
     authService
-      .signup(userRequestBody)
+      .signup(requestBody)
       .then((response) => {
-        if(isNewBuilding) {
-          // API call to create the building
-          buildingService.create(buildingRequestBody)
-            .then((buildingResponse) => {
-              navigate("/login");
-            })
-            .catch((buildingError) => {
-              // Handle building creation errors
-              setErrorMessage(buildingError.message);
-            });
-        } else {
-          navigate("/login");
-        }
+        navigate("/login");
       })
       .catch((error) => {
         if (error.response && error.response.data.message) {
@@ -77,33 +51,6 @@ function SignupPage() {
 
         <label>Name:</label>
         <input type="text" name="name" value={name} onChange={handleName} />
-
-        <label>Building Address:</label>
-        <input
-          type="text"
-          name="buildingAddress"
-          value={buildingAddress}
-          onChange={handleBuildingAddress}
-        />
-        {isNewBuilding && (
-          <>
-            <label>Building Name:</label>
-            <input
-              type="text"
-              name="buildingName"
-              value={buildingName}
-              onChange={handleBuildingName}
-            />
-
-            <label>Total Apartments:</label>
-            <input
-              type="number"
-              name="totalApartments"
-              value={totalApartments}
-              onChange={handleTotalApartments}
-            />
-          </>
-        )}
 
         <button type="submit">Sign Up</button>
       </form>
