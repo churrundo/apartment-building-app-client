@@ -6,7 +6,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
-//import buildingsPage from "./pages/buildingsPage/buildingsPage";
+import NewBuildingPage from "./pages/NewBuildingPage/NewBuildingPage";
 import AnnouncementsPage from "./pages/AnnouncementsPage/AnnouncementsPage";
 import PollsPage from "./pages/PollsPage/PollsPage";
 import NewPollForm from "./pages/NewPollForm/NewPollForm";
@@ -56,14 +56,14 @@ function App() {
             </IsAnon>
           }
         />
-        {/* <Route
-          path="/buildings"
+        <Route
+          path="/new-building"
           element={
             <IsPrivate>
-              <buildingsPage />
+              <NewBuildingPage />
             </IsPrivate>
           }
-        /> */}
+        />
         <Route
           path="/announcements"
           element={
