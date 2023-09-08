@@ -57,7 +57,7 @@ function App() {
           }
         />
         <Route
-          path="/new-building"
+          path="/create-building"
           element={
             <IsPrivate>
               <NewBuildingPage />
