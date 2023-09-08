@@ -56,8 +56,8 @@ function NewPollForm() {
         </div>
         <div>
           <label>Description: </label>
-          <input
-            type="text"
+          <textarea
+            rows="3"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
