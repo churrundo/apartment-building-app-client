@@ -5,6 +5,7 @@ const userService = {
     createUser : (formData)=> service.post('/api/users', formData),
     getUser: (userId) => service.get(`/api/users/${userId}`),
     updateUser: (userId, formData) => service.put(`/api/users/${userId}`, formData),
+    updateUserBuilding:(userId, buildingId) => service.put(`/api/users/${userId}/updateBuilding/${buildingId}`),
     deleteUser: (userId) => service.delete(`/api/users/${userId}`),
 }
 
