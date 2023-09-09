@@ -6,7 +6,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
-import ComplaintsPage from "./pages/ComplaintsPage/ComplaintsPage";
+import NewBuildingPage from "./pages/NewBuildingPage/NewBuildingPage";
 import AnnouncementsPage from "./pages/AnnouncementsPage/AnnouncementsPage";
 import PollsPage from "./pages/PollsPage/PollsPage";
 import NewPollForm from "./pages/NewPollForm/NewPollForm";
@@ -57,10 +57,10 @@ function App() {
           }
         />
         <Route
-          path="/complaints"
+          path="/create-building"
           element={
             <IsPrivate>
-              <ComplaintsPage />
+              <NewBuildingPage />
             </IsPrivate>
           }
         />

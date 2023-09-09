@@ -1,9 +1,10 @@
 import service from './index';
 
 const pollService = {
-    getAllPolls : ()=> service.get('/api/polls'),
     createPoll : (formData)=> service.post('/api/polls', formData),
+    getAllPolls : ()=> service.get('/api/polls'),
     getPoll: (pollId) => service.get(`/api/polls/${pollId}`),
+    getpollsByBuilding: (buildingId)=> service.get(`/api/polls/buildingId?:${buildingId}`),
     updatePoll: (pollId, formData) => service.put(`/api/polls/${pollId}`, formData),
     vote: (pollId, optionId, userId) => service.post(`/api/polls/${pollId}/vote`, { optionId, userId }),
     closePoll: (pollId, userId) => service.put(`/api/polls/${pollId}/close`, { userId }),

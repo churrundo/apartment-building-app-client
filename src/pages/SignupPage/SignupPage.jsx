@@ -17,21 +17,18 @@ function SignupPage() {
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
-    // Create an object representing the request body
     const requestBody = { email, password, name };
-
     authService
       .signup(requestBody)
       .then((response) => {
         navigate("/login");
       })
       .catch((error) => {
-        // If the request resolves with an error, set the error message in the state
-        if (error.response && error.response.data.message){
+        if (error.response && error.response.data.message) {
           const errorDescription = error.response.data.message;
           setErrorMessage(errorDescription);
         } else {
-          setErrorMessage(error.message)
+          setErrorMessage(error.message);
         }
       });
   };
