@@ -22,14 +22,14 @@ function NewBuildingPage() {
       admin: user._id,
     };
 
+    console.log(buildingData)
+
     buildingService
       .createBuilding(buildingData)
       .then((response) => {
-        const newBuildingId = response.data.id;
+        const newBuildingId = response.data.building._id;
         userService
-          .updateUser(user._id, {
-            residence: { building: newBuildingId },
-          })
+          .updateUserBuilding(user._id, newBuildingId )
           .then(() => {
             navigate("/dashboard", { state: { newBuildingId } });
           });
