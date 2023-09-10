@@ -25,7 +25,7 @@ function NewBuildingPage() {
     buildingService
       .createBuilding(buildingData)
       .then((response) => {
-        const newBuildingId = response.data.id;
+        const newBuildingId = response.data.building._id;
         userService
           .updateUser(user._id, {
             residence: { building: newBuildingId },
