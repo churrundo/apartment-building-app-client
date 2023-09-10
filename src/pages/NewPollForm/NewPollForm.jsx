@@ -36,6 +36,7 @@ function NewPollForm() {
       description,
       options,
       createdBy: userId,
+      buildingId: user.buildingId,
     };
     console.log(formData);
     await pollService.createPoll(formData);
