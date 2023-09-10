@@ -25,8 +25,11 @@
     color: #555;
 }
 
-/* DashboardPage.css */
-/* DashboardPage.css */
+.dashboard-item{
+    border: solid, black, 1px;
+    font-weight: 700;
+    font-size: larger;
+}
 .no-building-notice {
     padding: 20px;
     border: 1px solid #ddd;

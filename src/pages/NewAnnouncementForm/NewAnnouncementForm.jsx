@@ -20,6 +20,7 @@ function NewAnnouncementForm() {
       title,
       message,
       userId,
+      buildingId: user.buildingId,
     };
 
     console.log(formData);

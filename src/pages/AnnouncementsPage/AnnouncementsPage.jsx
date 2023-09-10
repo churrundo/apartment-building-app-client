@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./AnnouncementsPage.css";
+import { AuthContext } from "../../context/auth.context";
 import announcementService from "../../services/announcements.service";
 import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
 
 function AnnouncementsPage() {
   const [announcements, setAnnouncements] = useState([]);
+  const {buildingId} = useContext(AuthContext)
 
   const fetchAnnouncements = ()=>{
     announcementService
-      .getAllAnnouncements()
+      .getAnnouncementsByBuilding(buildingId)
       .then((data) => {
         if (data.message === "No announcements found") {
           console.log(data.message);

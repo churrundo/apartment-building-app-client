@@ -28,8 +28,8 @@ function DashboardPage() {
       AnnouncementService.getAnnouncementsByBuilding(currentBuildingId)
         .then((response) => {
           response.data
-            ? setAnnouncementError("No announcements found for this building.")
-            : setAnnouncements(response.data);
+            ? setAnnouncements(response.data)
+            : setAnnouncementError("No announcements found for this building.");
         })
         .catch((error) => {
           console.log(error.message);
@@ -38,8 +38,8 @@ function DashboardPage() {
       PollService.getPollsByBuilding(currentBuildingId)
         .then((response) => {
           response.data
-            ? setPollsError("No polls found for this building.")
-            : setPolls(response.data);
+            ? setPolls(response.data)
+            : setPollsError("No polls found for this building.");
         })
         .catch((error) => {
           console.log(error.message);
@@ -93,7 +93,7 @@ function DashboardPage() {
             ) : (
               <>
                 {announcements.map((announcement) => (
-                  <div key={announcement.id}>{announcement.title}</div>
+                  <div className="dashboard-item" key={announcement._id}>{announcement.title}</div>
                 ))}
                 <a href="/announcements">see all</a>
               </>
@@ -108,7 +108,7 @@ function DashboardPage() {
             ) : (
               <>
                 {polls.map((poll) => (
-                  <div key={poll.id}>{poll.title}</div>
+                  <div className="dashboard-item" key={poll._id}>{poll.title}</div>
                 ))}
                 <a href="/polls">see all</a>
               </>
