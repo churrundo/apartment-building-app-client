@@ -13,31 +13,36 @@ function DashboardPage() {
   const [polls, setPolls] = useState([]);
   const [hasBuilding, setHasBuilding] = useState(false);
   const [buildingAddress, setBuildingAddress] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [announcementError, setAnnouncementError] = useState(null);
+  const [pollsError, setPollsError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  const location = useLocation;
+  const location = useLocation();
   const passedBuildingId = location.state?.newBuildingId;
 
   useEffect(() => {
-    const currentBuildingId = passedBuildingId || user.residence?.building;
-
+    const currentBuildingId = passedBuildingId || user.buildingId;
     if (currentBuildingId) {
       setHasBuilding(true);
 
       AnnouncementService.getAnnouncementsByBuilding(currentBuildingId)
-        .then((data) => {
-          setAnnouncements(data);
+        .then((response) => {
+          response.data
+            ? setAnnouncementError("No announcements found for this building.")
+            : setAnnouncements(response.data);
         })
         .catch((error) => {
-          console.error("Error fetching announcements:", error);
+          console.log(error.message);
         });
 
       PollService.getPollsByBuilding(currentBuildingId)
-        .then((data) => {
-          setPolls(data);
+        .then((response) => {
+          response.data
+            ? setPollsError("No polls found for this building.")
+            : setPolls(response.data);
         })
         .catch((error) => {
-          console.error("Error fetching polls:", error);
+          console.log(error.message);
         });
     }
   }, [passedBuildingId, user]);
@@ -82,19 +87,32 @@ function DashboardPage() {
         <div className="dashboard-content">
           <section className="recent-announcements">
             <h2>Recent Announcements</h2>
-            {/* Display announcements */}
-            {announcements.map((announcement) => (
-              <div key={announcement.id}>{announcement.title}</div>
-            ))}
-            <a href="/announcements">see all</a>
+            <a href="/new-announcement">Post an announcement</a>
+            {announcementError ? (
+              <div className="error-message">{announcementError}</div>
+            ) : (
+              <>
+                {announcements.map((announcement) => (
+                  <div key={announcement.id}>{announcement.title}</div>
+                ))}
+                <a href="/announcements">see all</a>
+              </>
+            )}
           </section>
+
           <section className="ongoing-polls">
             <h2>Ongoing Polls</h2>
-            {/* Display polls */}
-            {polls.map((poll) => (
-              <div key={poll.id}>{poll.title}</div>
-            ))}
-            <a href="/polls">see all</a>
+            <a href="/new-poll">Open a poll</a>
+            {pollsError ? (
+              <div className="error-message">{pollsError}</div>
+            ) : (
+              <>
+                {polls.map((poll) => (
+                  <div key={poll.id}>{poll.title}</div>
+                ))}
+                <a href="/polls">see all</a>
+              </>
+            )}
           </section>
         </div>
       ) : (
