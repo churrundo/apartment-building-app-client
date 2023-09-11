@@ -1,22 +1,18 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
-import { useNavigate } from "react-router-dom";
 import buildingService from "../../services/building.service";
 import userService from "../../services/users.service";
 
 function NewBuildingPage() {
   const [buildingAddress, setBuildingAddress] = useState("");
-  const [buildingName, setBuildingName] = useState("");
   const [totalApartments, setTotalApartments] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { user, logOutUser } = useContext(AuthContext);
 
   const handleBuildingSubmit = (e) => {
     e.preventDefault();
 
     const buildingData = {
-      name: buildingName,
       address: buildingAddress,
       totalApartments,
       admin: user._id,
@@ -31,7 +27,7 @@ function NewBuildingPage() {
             residence: { building: newBuildingId },
           })
           .then(() => {
-            navigate("/dashboard", { state: { newBuildingId } });
+            logOutUser()
           });
       })
       .catch((error) => {
@@ -41,20 +37,13 @@ function NewBuildingPage() {
 
   return (
     <div>
-      <h2>Create New Building</h2>
+      <h2>Create New Building (you'll be logged out. just log back in)</h2>
       <form onSubmit={handleBuildingSubmit}>
         <label>Building Address:</label>
         <input
           type="text"
           value={buildingAddress}
           onChange={(e) => setBuildingAddress(e.target.value)}
-        />
-
-        <label>Building Name:</label>
-        <input
-          type="text"
-          value={buildingName}
-          onChange={(e) => setBuildingName(e.target.value)}
         />
 
         <label>Total Apartments:</label>

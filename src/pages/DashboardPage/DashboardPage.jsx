@@ -5,10 +5,8 @@ import AnnouncementService from "../../services/announcements.service";
 import PollService from "../../services/polls.service";
 import BuildingService from "../../services/building.service";
 import UserService from "../../services/users.service";
-import { useLocation } from "react-router-dom";
 
 function DashboardPage() {
-  const { user } = useContext(AuthContext);
   const [announcements, setAnnouncements] = useState([]);
   const [polls, setPolls] = useState([]);
   const [hasBuilding, setHasBuilding] = useState(false);
@@ -17,11 +15,12 @@ function DashboardPage() {
   const [pollsError, setPollsError] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const location = useLocation();
-  const passedBuildingId = location.state?.newBuildingId;
+  //get the building id form jwt
+  const { user } = useContext(AuthContext);
+  console.log("context.user.buildingID:", user.buildingId);
 
   useEffect(() => {
-    const currentBuildingId = passedBuildingId || user.buildingId;
+    const currentBuildingId = user.buildingId;
     if (currentBuildingId) {
       setHasBuilding(true);
 
@@ -45,7 +44,7 @@ function DashboardPage() {
           console.log(error.message);
         });
     }
-  }, [passedBuildingId, user]);
+  }, [user]);
 
   const handleJoinBuilding = (buildingId) => {
     BuildingService.addUserToBuilding(buildingId, user._id)
@@ -53,7 +52,7 @@ function DashboardPage() {
         return UserService.updateUserBuilding(user._id, buildingId);
       })
       .then(() => {
-        setHasBuilding(true);
+        AuthContext.logOutUser()
       })
       .catch((error) => {
         console.error("Error updating associations:", error);

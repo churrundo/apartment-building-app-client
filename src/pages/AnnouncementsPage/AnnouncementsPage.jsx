@@ -7,37 +7,33 @@ import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard
 
 function AnnouncementsPage() {
   const [announcements, setAnnouncements] = useState([]);
-  const {buildingId} = useContext(AuthContext)
-
-  const fetchAnnouncements = ()=>{
-    announcementService
-      .getAnnouncementsByBuilding(buildingId)
-      .then((data) => {
-        if (data.message === "No announcements found") {
-          console.log(data.message);
-        }
-        setAnnouncements(data.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching announcements:", error);
-      });
-  }
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetchAnnouncements()
-  }, []);
+    announcementService
+    .getAnnouncementsByBuilding(user.buildingId)
+    .then((data) => {
+      if (data.message === "No announcements found") {
+        console.log(data.message);
+      }
+      setAnnouncements(data.data);
+    })
+    .catch((error) => {
+      console.error("Error fetching announcements:", error);
+    });
+  }, [user]);
 
   return (
     <div className="announcements">
       <h1>Latest Announcements</h1>
       <div className="announcement-list">
-      <Link to="/new-announcement">Create new announcement...</Link>
+        <Link to="/new-announcement">Create new announcement...</Link>
         {announcements && announcements.length > 0 ? (
           announcements.map((announcement) => (
             <AnnouncementCard
               key={announcement._id}
               announcement={announcement}
-              refreshData={fetchAnnouncements}
+              refreshData={announcementService.getAnnouncementsByBuilding(user.buildingId)}
             />
           ))
         ) : (
