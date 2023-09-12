@@ -83,7 +83,7 @@ function ProfilePage() {
 
     // Update the backend using updateUser function
     userService
-      .updateUser(user._id, updatedAvailability)
+      .updateUser(user._id, {details: updatedAvailability})
       .then((response) => {
         // Handle success
       })
