@@ -5,6 +5,7 @@ import AnnouncementService from "../../services/announcements.service";
 import PollService from "../../services/polls.service";
 import BuildingService from "../../services/building.service";
 import UserService from "../../services/users.service";
+import { Link } from "react-router-dom";
 
 function DashboardPage() {
   const [announcements, setAnnouncements] = useState([]);
@@ -52,7 +53,7 @@ function DashboardPage() {
         return UserService.updateUserBuilding(user._id, buildingId);
       })
       .then(() => {
-        AuthContext.logOutUser()
+        AuthContext.logOutUser();
       })
       .catch((error) => {
         console.error("Error updating associations:", error);
@@ -92,7 +93,9 @@ function DashboardPage() {
             ) : (
               <>
                 {announcements.map((announcement) => (
-                  <div className="dashboard-item" key={announcement._id}>{announcement.title}</div>
+                  <div className="dashboard-item" key={announcement._id}>
+                    {announcement.title}
+                  </div>
                 ))}
                 <a href="/announcements">see all</a>
               </>
@@ -107,12 +110,17 @@ function DashboardPage() {
             ) : (
               <>
                 {polls.map((poll) => (
-                  <div className="dashboard-item" key={poll._id}>{poll.title}</div>
+                  <div className="dashboard-item" key={poll._id}>
+                    {poll.title}
+                  </div>
                 ))}
                 <a href="/polls">see all</a>
               </>
             )}
           </section>
+          <div className="directory-link">
+            <Link to="/directory">Go to Neighbor Directory</Link>
+          </div>
         </div>
       ) : (
         <div className="no-building-notice">
