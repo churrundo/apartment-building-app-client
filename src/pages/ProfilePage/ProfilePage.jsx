@@ -83,13 +83,12 @@ function ProfilePage() {
 
     // Update the backend using updateUser function
     userService
-      .updateUser(user._id, updatedAvailability)
+      .updateUser(user._id, {details: updatedAvailability})
       .then((response) => {
-        // Handle success
+        console.log(response.message)
       })
       .catch((error) => {
         console.error("Error updating availability", error);
-        // Handle error (e.g., revert the change or show an error message)
       });
   };
 
