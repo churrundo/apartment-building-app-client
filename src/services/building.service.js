@@ -3,6 +3,7 @@ import service from './index';
 const buildingService = {
     getAllBuildings : ()=> service.get('/api/buildings'),
     createBuilding : (formData)=> service.post('/api/buildings', formData),
+    getResidents: (buildingId)=> service.get(`/api/buildings/${buildingId}/directory`),
     getBuildingById: (buildingId) => service.get(`/api/buildings/${buildingId}`),
     getBuildingByAddress: (buildingAddress) => service.get(`/api/buildings?address=${buildingAddress}`),
     updateBuilding: (buildingId, formData) => service.put(`/api/buildings/${buildingId}`, formData),
