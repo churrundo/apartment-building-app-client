@@ -16,6 +16,7 @@ import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
+import NeighborDirectoryPage from "./pages/NeighborDirectoryPage/NeighborDirectoryPage";
 
 function App() {
   return (
@@ -79,6 +80,14 @@ function App() {
               <PollsPage />
             </IsPrivate>
           }
+        />
+        <Route
+        path="/directory"
+        element={
+          <IsPrivate>
+            <NeighborDirectoryPage/>
+          </IsPrivate>
+        }
         />
         <Route
           path="/new-poll"
