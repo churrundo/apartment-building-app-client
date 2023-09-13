@@ -4,7 +4,6 @@ import { AuthContext } from "../../context/auth.context";
 import AnnouncementService from "../../services/announcements.service";
 import PollService from "../../services/polls.service";
 import BuildingService from "../../services/building.service";
-import UserService from "../../services/users.service";
 import { Link } from "react-router-dom";
 
 function DashboardPage() {
@@ -50,9 +49,6 @@ function DashboardPage() {
   const handleJoinBuilding = (buildingId) => {
     console.log(`Adding user ${user._id} to building ${buildingId}`);
     BuildingService.addUserToBuilding(buildingId, user._id)
-      .then(() => {
-        return UserService.updateUserBuilding(user._id, buildingId);
-      })
       .then(() => {
         AuthContext.logOutUser();
       })
