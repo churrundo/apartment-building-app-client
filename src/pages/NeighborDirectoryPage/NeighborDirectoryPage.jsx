@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import "./NeighborDirectoryPage.css";
 import { AuthContext } from "../../context/auth.context";
 import buildingService from "../../services/building.service";
+import NeighborCard from "../../components/NeighborCard/NeighborCard";
 
 const NeighborDirectoryPage = () => {
   const [neighbors, setNeighbors] = useState([]);
@@ -11,26 +12,36 @@ const NeighborDirectoryPage = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    buildingService.getResidents(user.buildingId)
-      .then(response => {
+    buildingService
+      .getResidents(user.buildingId)
+      .then((response) => {
         setNeighbors(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching neighbors:", error);
       });
   }, [user]);
 
-  const filteredNeighbors = neighbors.filter(neighbor => {
-    const matchesSearch = neighbor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      neighbor.details.specialSkills.some(skill => skill.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredNeighbors = neighbors.filter((neighbor) => {
+    const matchesSearch =
+      neighbor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      neighbor.details.specialSkills.some((skill) =>
+        skill.toLowerCase().includes(searchTerm.toLowerCase())
+      );
 
     let matchesFilter = true;
     if (filter === "occupation") {
-      matchesFilter = neighbor.details.occupation.toLowerCase().includes(filterValue.toLowerCase());
+      matchesFilter = neighbor.details.occupation
+        .toLowerCase()
+        .includes(filterValue.toLowerCase());
     } else if (filter === "language") {
-      matchesFilter = neighbor.details.languagesSpoken.includes(filterValue.toLowerCase());
+      matchesFilter = neighbor.details.languagesSpoken.includes(
+        filterValue.toLowerCase()
+      );
     } else if (filter === "skill") {
-      matchesFilter = neighbor.details.specialSkills.includes(filterValue.toLowerCase());
+      matchesFilter = neighbor.details.specialSkills.includes(
+        filterValue.toLowerCase()
+      );
     }
 
     return matchesSearch && matchesFilter;
@@ -60,7 +71,7 @@ const NeighborDirectoryPage = () => {
           <input
             type="text"
             placeholder={`Filter by ${filter}...`}
-            value={filterValue}            
+            value={filterValue}
             onChange={(e) => setFilterValue(e.target.value)}
           />
         )}
@@ -73,19 +84,8 @@ const NeighborDirectoryPage = () => {
             <p>Invite them to join the platform and share their details!</p>
           </div>
         ) : (
-          filteredNeighbors.map(neighbor => (
-            <div className="neighbor-card" key={neighbor._id}>
-              <img src={neighbor.details.profilePicture || "/path/to/default-image.jpg"} alt={`${neighbor.name}'s profile`} />
-              <h2>{neighbor.name}</h2>
-              <p>Apt: {neighbor.details.apartmentNumber}</p>
-              <p>{neighbor.details.occupation}</p>
-              <p>Bio: {neighbor.details.shortBio}</p>
-              <div className="skills">
-                {neighbor.details.specialSkills.map(skill => (
-                  <span className="skill-tag" key={skill}>{skill}</span>
-                ))}
-              </div>
-            </div>
+          filteredNeighbors.map((neighbor) => (
+            <NeighborCard key={neighbor._id} neighbor={neighbor} />
           ))
         )}
       </div>
