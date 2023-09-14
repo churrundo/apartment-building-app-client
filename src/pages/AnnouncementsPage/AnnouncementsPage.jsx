@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./AnnouncementsPage.css";
 import { AuthContext } from "../../context/auth.context";
 import announcementService from "../../services/announcements.service";
-import AnnouncementCard from "../../components/AnnouncementCard/AnnouncementCard";
+import AnnouncementCard from "./AnnouncementCard/AnnouncementCard";
 
 function AnnouncementsPage() {
   const [announcements, setAnnouncements] = useState([]);

@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
-import { AuthContext } from "../../context/auth.context";
-import buildingService from "../../services/building.service";
-import userService from "../../services/users.service";
+import { AuthContext } from "../../../context/auth.context";
+import buildingService from "../../../services/building.service";
+import userService from "../../../services/users.service";
 
 function NewBuildingPage() {
   const [buildingAddress, setBuildingAddress] = useState("");

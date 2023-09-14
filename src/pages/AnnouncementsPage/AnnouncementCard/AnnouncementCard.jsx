@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./AnnouncementCard.css";
-import { AuthContext } from "../../context/auth.context";
-import announcementService from "../../services/announcements.service";
-import userService from "../../services/users.service";
+import { AuthContext } from "../../../context/auth.context";
+import announcementService from "../../../services/announcements.service";
+import userService from "../../../services/users.service";
 
 function AnnouncementCard({ announcement, refreshData }) {
   const { user } = useContext(AuthContext);

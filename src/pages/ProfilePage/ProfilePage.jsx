@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/auth.context";
 import userService from "../../services/users.service";
-import Detail from "../../components/Detail/Detail";
+import Detail from "./Detail/Detail";
 import "./ProfilePage.css";
 
 const defaultDetails = {

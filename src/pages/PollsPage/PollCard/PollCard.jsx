@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
-import pollService from "../../services/polls.service";
-import { AuthContext } from "../../context/auth.context";
+import pollService from "../../../services/polls.service";
+import { AuthContext } from "../../../context/auth.context";
 import "./PollCard.css";
 
 function PollCard({ poll }) {
@@ -71,16 +71,20 @@ function PollCard({ poll }) {
       {voteAcknowledged && (
         <div className="vote-acknowledgement">Thanks for voting!</div>
       )}
-  
+
       <div className="options-container">
         {currentPoll.options.map((option) => (
           <div
             key={option._id}
             className={`option 
-            ${option._id === winningOptionId && currentPoll.status === "Closed"
-              ? "winning-option"
-              : ""} 
-            ${userHasVoted && option._id === votedOption ? "option-voted" : ""}`}
+            ${
+              option._id === winningOptionId && currentPoll.status === "Closed"
+                ? "winning-option"
+                : ""
+            } 
+            ${
+              userHasVoted && option._id === votedOption ? "option-voted" : ""
+            }`}
           >
             <span>{option.optionText}</span>
             <span>
@@ -109,7 +113,6 @@ function PollCard({ poll }) {
       )}
     </div>
   );
-  
 }
 
 export default PollCard;

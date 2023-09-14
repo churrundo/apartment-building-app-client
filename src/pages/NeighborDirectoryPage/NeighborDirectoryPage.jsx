@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import "./NeighborDirectoryPage.css";
 import { AuthContext } from "../../context/auth.context";
 import buildingService from "../../services/building.service";
-import NeighborCard from "../../components/NeighborCard/NeighborCard";
+import NeighborCard from "./NeighborCard/NeighborCard";
 
 const NeighborDirectoryPage = () => {
   const [neighbors, setNeighbors] = useState([]);

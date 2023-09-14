@@ -6,17 +6,17 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
-import NewBuildingPage from "./pages/NewBuildingPage/NewBuildingPage";
+import NewBuildingPage from "./pages/DashboardPage/NewBuildingPage/NewBuildingPage";
 import AnnouncementsPage from "./pages/AnnouncementsPage/AnnouncementsPage";
 import PollsPage from "./pages/PollsPage/PollsPage";
-import NewPollForm from "./pages/NewPollForm/NewPollForm";
-import NewAnnouncementForm from "./pages/NewAnnouncementForm/NewAnnouncementForm"
+import NewPollForm from "./pages/PollsPage/NewPollForm/NewPollForm";
+import NewAnnouncementForm from "./pages/AnnouncementsPage/NewAnnouncementForm/NewAnnouncementForm";
+import NeighborDirectoryPage from "./pages/NeighborDirectoryPage/NeighborDirectoryPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
-import NeighborDirectoryPage from "./pages/NeighborDirectoryPage/NeighborDirectoryPage";
 
 function App() {
   return (
