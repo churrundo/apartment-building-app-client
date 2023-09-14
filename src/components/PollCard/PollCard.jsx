@@ -3,7 +3,7 @@ import pollService from "../../services/polls.service";
 import { AuthContext } from "../../context/auth.context";
 import "./PollCard.css";
 
-function PollCard({ poll }) {
+function PollCard({ poll, onDelete }) {
   const [currentPoll, setCurrentPoll] = useState(poll);
   const { user } = useContext(AuthContext);
 
@@ -41,6 +41,20 @@ function PollCard({ poll }) {
       setCurrentPoll(updatedPoll);
     } catch (error) {
       console.error("Error closing poll:", error);
+    }
+  };
+
+  const handleDeletePoll = async () => {
+    try {
+      const response = await pollService.deletePoll(currentPoll._id, user._id);
+      if (response) {
+        console.log("Poll deleted successfully!");
+        if (onDelete) {
+          onDelete(currentPoll._id);
+        }
+      }
+    } catch (error) {
+      console.error("Error deleting poll:", error);
     }
   };
 
@@ -86,10 +100,18 @@ function PollCard({ poll }) {
           </div>
         ))}
       </div>
-      {currentPoll.createdBy === user._id && currentPoll.status === "Open" && (
-        <button onClick={() => handleClosePoll(currentPoll._id)}>
-          Close Poll
-        </button>
+      {currentPoll.createdBy === user._id && (
+        <>
+          {currentPoll.status === "Open" ? (
+            <button onClick={() => handleClosePoll(currentPoll._id)}>
+              Close Poll
+            </button>
+          ) : (
+            <button onClick={handleDeletePoll}>
+              Delete Poll
+            </button>
+          )}
+        </>
       )}
     </div>
   );
