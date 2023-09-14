@@ -1,4 +1,5 @@
 import "./SignupPage.css";
+import { Form, Button, Container, Alert } from 'react-bootstrap';
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
@@ -33,34 +34,35 @@ function SignupPage() {
       });
   };
 
-  return (
-    <div className="SignupPage">
+return (
+    <Container className="d-flex flex-column justify-content-center align-items-center vh-100">
       <h1>Sign Up</h1>
 
-      <form onSubmit={handleSignupSubmit}>
-        <label>Email:</label>
-        <input type="email" name="email" value={email} onChange={handleEmail} />
+      <Form onSubmit={handleSignupSubmit} className="w-100" style={{ maxWidth: '380px' }}>
+        <Form.Group>
+          <Form.Label>Email:</Form.Label>
+          <Form.Control type="email" name="email" value={email} onChange={handleEmail} />
+        </Form.Group>
 
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
-        />
+        <Form.Group>
+          <Form.Label>Password:</Form.Label>
+          <Form.Control type="password" name="password" value={password} onChange={handlePassword} />
+        </Form.Group>
 
-        <label>Name:</label>
-        <input type="text" name="name" value={name} onChange={handleName} />
+        <Form.Group>
+          <Form.Label>Name:</Form.Label>
+          <Form.Control type="text" name="name" value={name} onChange={handleName} />
+        </Form.Group>
 
-        <button type="submit">Sign Up</button>
-      </form>
+        <Button variant="primary" type="submit" className="w-100 mt-3">Sign Up</Button>
+      </Form>
 
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {errorMessage && <Alert variant="danger" className="mt-3">{errorMessage}</Alert>}
 
-      <p>Already have account?</p>
+      <p className="mt-3">Already have an account?</p>
       <Link to={"/login"}> Login</Link>
-    </div>
-  );
+    </Container>
+);
 }
 
 export default SignupPage;
