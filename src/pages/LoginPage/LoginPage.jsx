@@ -1,4 +1,5 @@
 import "./LoginPage.css";
+import { Form, Button, Container, Alert } from "react-bootstrap";
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
@@ -36,28 +37,48 @@ function LoginPage() {
   };
 
   return (
-    <div className="LoginPage">
+    <Container className="d-flex flex-column justify-content-center align-items-center vh-100">
       <h1>Login</h1>
 
-      <form onSubmit={handleLoginSubmit}>
-        <label>Email:</label>
-        <input type="email" name="email" value={email} onChange={handleEmail} />
+      <Form
+        onSubmit={handleLoginSubmit}
+        className="w-100"
+        style={{ maxWidth: "380px" }}
+      >
+        <Form.Group>
+          <Form.Label>Email:</Form.Label>
+          <Form.Control
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleEmail}
+          />
+        </Form.Group>
 
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
-        />
+        <Form.Group>
+          <Form.Label>Password:</Form.Label>
+          <Form.Control
+            type="password"
+            name="password"
+            value={password}
+            onChange={handlePassword}
+          />
+        </Form.Group>
 
-        <button type="submit">Login</button>
-      </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <Button variant="primary" type="submit" className="w-100 mt-3">
+          Login
+        </Button>
+      </Form>
 
-      <p>Don't have an account yet?</p>
+      {errorMessage && (
+        <Alert variant="danger" className="mt-3">
+          {errorMessage}
+        </Alert>
+      )}
+
+      <p className="mt-3">Don't have an account yet?</p>
       <Link to={"/signup"}> Sign Up</Link>
-    </div>
+    </Container>
   );
 }
 
