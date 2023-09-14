@@ -4,20 +4,18 @@ import { AuthContext } from "../../context/auth.context";
 import AnnouncementService from "../../services/announcements.service";
 import PollService from "../../services/polls.service";
 import BuildingService from "../../services/building.service";
-import UserService from "../../services/users.service";
 import { Link } from "react-router-dom";
 
 function DashboardPage() {
   const [announcements, setAnnouncements] = useState([]);
   const [polls, setPolls] = useState([]);
   const [hasBuilding, setHasBuilding] = useState(false);
-  const [buildingAddress, setBuildingAddress] = useState("");
+  const [buildingId, setBuildingId] = useState("");
   const [announcementError, setAnnouncementError] = useState(null);
   const [pollsError, setPollsError] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const { user, storeToken, authenticateUser } = useContext(AuthContext);
 
-  //get the building id form jwt
-  const { user } = useContext(AuthContext);
   console.log("context.user.buildingID:", user.buildingId);
 
   useEffect(() => {
@@ -48,36 +46,17 @@ function DashboardPage() {
   }, [user]);
 
   const handleJoinBuilding = (buildingId) => {
+    console.log(`Adding user ${user._id} to building ${buildingId}`);
     BuildingService.addUserToBuilding(buildingId, user._id)
-      .then(() => {
-        return UserService.updateUserBuilding(user._id, buildingId);
-      })
-      .then(() => {
-        AuthContext.logOutUser();
-      })
-      .catch((error) => {
-        console.error("Error updating associations:", error);
-      });
-  };
-
-  const handleAddressSearch = () => {
-    BuildingService.getBuildingByAddress(buildingAddress)
-      .then((buildingResponse) => {
-        const wantsToJoin = window.confirm(
-          "A building with this address exists. Do you want to join it?"
-        );
-        if (wantsToJoin) {
-          console.log(buildingResponse);
-          handleJoinBuilding(buildingResponse.data._id);
-        }
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 404) {
-          setErrorMessage("No building found with the given address.");
-        } else {
-          console.log(error.message);
-        }
-      });
+    .then(response => {
+      console.log("response data:",response.data.authToken);
+      // 1. Store the new token
+      storeToken(response.data.authToken);
+      authenticateUser();
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+    });
   };
 
   return (
@@ -127,13 +106,14 @@ function DashboardPage() {
           {errorMessage && <div className="error-message">{errorMessage}</div>}
           You're not associated with any building.
           <div>
-            Search for a building to join:
+            Enter a Building ID to join:
             <input
               type="text"
-              value={buildingAddress}
-              onChange={(e) => setBuildingAddress(e.target.value)}
+              placeholder="Enter Building ID"
+              value={buildingId}
+              onChange={(e) => setBuildingId(e.target.value)}
             />
-            <button onClick={handleAddressSearch}>Search</button>
+            <button onClick={()=>{handleJoinBuilding(buildingId)}}>Join</button>
           </div>
           <div>
             or <a href="/create-building">create a new one</a>.
