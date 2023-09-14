@@ -39,3 +39,13 @@
     background-color: #0056b3;
   }
   
+  .poll-card .vote-acknowledgement {
+    color: #007bff;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .option-voted {
+    background-color: #f2f2f2;
+  }

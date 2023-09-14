@@ -5,6 +5,8 @@ import "./PollCard.css";
 
 function PollCard({ poll }) {
   const [currentPoll, setCurrentPoll] = useState(poll);
+  const [voteAcknowledged, setVoteAcknowledged] = useState(false);
+  const [votedOption, setVotedOption] = useState(null);
   const { user } = useContext(AuthContext);
 
   const totalVotes = currentPoll.options.reduce(
@@ -12,15 +14,17 @@ function PollCard({ poll }) {
     0
   );
 
+  const userHasVoted = currentPoll.votedUserIds.includes(user._id);
+
   const handleVote = async (optionId) => {
     try {
       const userId = user._id;
-      console.log(userId);
       const response = await pollService.vote(poll._id, optionId, userId);
-
-      // Check if the response has the needed properties.
+      setVotedOption(optionId);
       if (response && response.data.options) {
         setCurrentPoll(response.data);
+        setVoteAcknowledged(true);
+        setTimeout(() => setVoteAcknowledged(false), 3000);
       } else {
         console.error(
           "Received unexpected poll structure from server:",
@@ -48,7 +52,7 @@ function PollCard({ poll }) {
     let maxVotes = -1;
     let winningOptionId = null;
 
-    currentPoll.options.forEach(option => {
+    currentPoll.options.forEach((option) => {
       if (option.votes > maxVotes) {
         maxVotes = option.votes;
         winningOptionId = option._id;
@@ -64,12 +68,19 @@ function PollCard({ poll }) {
     <div className="poll-card">
       <h2>{currentPoll.title}</h2>
       <p>{currentPoll.description}</p>
-
+      {voteAcknowledged && (
+        <div className="vote-acknowledgement">Thanks for voting!</div>
+      )}
+  
       <div className="options-container">
         {currentPoll.options.map((option) => (
           <div
             key={option._id}
-            className={`option ${option._id === winningOptionId && currentPoll.status === "Closed" ? 'winning-option' : ''}`}
+            className={`option 
+            ${option._id === winningOptionId && currentPoll.status === "Closed"
+              ? "winning-option"
+              : ""} 
+            ${userHasVoted && option._id === votedOption ? "option-voted" : ""}`}
           >
             <span>{option.optionText}</span>
             <span>
@@ -79,7 +90,12 @@ function PollCard({ poll }) {
               %
             </span>
             {currentPoll.status === "Open" ? (
-              <button onClick={() => handleVote(option._id)}>Vote</button>
+              <button
+                onClick={() => handleVote(option._id)}
+                disabled={userHasVoted}
+              >
+                Vote
+              </button>
             ) : (
               <span>Closed</span>
             )}
@@ -93,6 +109,7 @@ function PollCard({ poll }) {
       )}
     </div>
   );
+  
 }
 
 export default PollCard;
