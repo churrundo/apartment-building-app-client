@@ -14,9 +14,8 @@ function DashboardPage() {
   const [announcementError, setAnnouncementError] = useState(null);
   const [pollsError, setPollsError] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const { user, storeToken, authenticateUser } = useContext(AuthContext);
 
-  //get the building id form jwt
-  const { user } = useContext(AuthContext);
   console.log("context.user.buildingID:", user.buildingId);
 
   useEffect(() => {
@@ -49,12 +48,15 @@ function DashboardPage() {
   const handleJoinBuilding = (buildingId) => {
     console.log(`Adding user ${user._id} to building ${buildingId}`);
     BuildingService.addUserToBuilding(buildingId, user._id)
-      .then(() => {
-        AuthContext.logOutUser();
-      })
-      .catch((error) => {
-        setErrorMessage(error.message)
-      });
+    .then(response => {
+      console.log("response data:",response.data.authToken);
+      // 1. Store the new token
+      storeToken(response.data.authToken);
+      authenticateUser();
+    })
+    .catch((error) => {
+      setErrorMessage(error.message);
+    });
   };
 
   return (
