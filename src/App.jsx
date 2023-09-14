@@ -1,5 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import { Container } from 'react-bootstrap';
 
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
@@ -14,15 +15,15 @@ import NewAnnouncementForm from "./pages/AnnouncementsPage/NewAnnouncementForm/N
 import NeighborDirectoryPage from "./pages/NeighborDirectoryPage/NeighborDirectoryPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
-import Navbar from "./components/Navbar/Navbar";
+import NavbarComponent from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
 
 function App() {
   return (
     <div className="App">
-      {<Navbar />}
-
+      {<NavbarComponent />}
+      <Container fluid className="py-4">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
@@ -107,6 +108,7 @@ function App() {
         />
         <Route path="/not-found" element={<NotFoundPage />} />
       </Routes>
+      </Container>
     </div>
   );
 }

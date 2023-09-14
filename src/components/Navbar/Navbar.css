@@ -1,50 +1,9 @@
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    padding: 10px 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    color: white;
-    font-size: x-large;
-}
-
-nav a.linkButton {
-    display: inline-block;
-    margin: 0 10px;
-    padding: 4px 8px;
-    border: none;
-    background-color: #4CAF50;
-    color: #fff;
-    font-size: 12pt;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s;
-}
-
-nav a.linkButton:hover {
-    background-color: #45a049;
-}
-
-nav span {
-    color: #fff;
+.btn-outline-success {
+    color: #4CAF50;
+    border-color: #4CAF50;
     margin-left: 10px;
 }
 
-/* Mobile devices */
-@media (max-width: 375px) {
-    nav {
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    nav a,
-    nav button,
-    nav span {
-        margin: 5px 0;
-    }
+.btn-outline-success:hover {
+    background-color: #4CAF50;
 }
