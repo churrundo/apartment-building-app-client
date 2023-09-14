@@ -29,17 +29,17 @@ function NavbarComponent() {
             </>
           ) : (
             <>
-              {location.pathname !== "/" && (
-                <LinkContainer to="/">
-                  <Nav.Link>Home</Nav.Link>
-                </LinkContainer>
-              )}
               <LinkContainer to="/signup">
                 <Nav.Link>Sign Up</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/login">
                 <Nav.Link>Login</Nav.Link>
               </LinkContainer>
+              {location.pathname !== "/" && (
+                <LinkContainer to="/">
+                  <Nav.Link>Home</Nav.Link>
+                </LinkContainer>
+              )}
             </>
           )}
         </Nav>

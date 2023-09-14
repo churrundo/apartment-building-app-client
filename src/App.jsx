@@ -21,9 +21,9 @@ import IsAnon from "./components/IsAnon/IsAnon";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App d-flex flex-column">
+      <Container fluid className = "d-flex flex-column px-0 min-vh-100">
       {<NavbarComponent />}
-      <Container fluid className="py-4">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
