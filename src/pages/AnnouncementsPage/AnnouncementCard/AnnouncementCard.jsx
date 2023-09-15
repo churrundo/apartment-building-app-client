@@ -5,7 +5,7 @@ import announcementService from "../../../services/announcements.service";
 import userService from "../../../services/users.service";
 import { Card, Button, FormControl, InputGroup } from "react-bootstrap";
 
-function AnnouncementCard({ announcement, refreshData }) {
+function AnnouncementCard({ announcement, onDelete }) {
   const { user } = useContext(AuthContext);
   const [createdBy, setCreatedBy] = useState("");
   const [isEditMode, setIsEditMode] = useState(false);
@@ -35,7 +35,6 @@ function AnnouncementCard({ announcement, refreshData }) {
       })
       .then(() => {
         setIsEditMode(false);
-        refreshData();
       })
       .catch((error) => {
         console.error("There was an error updating the announcement", error);
@@ -46,7 +45,7 @@ function AnnouncementCard({ announcement, refreshData }) {
     announcementService
       .deleteAnnouncement(announcement._id)
       .then(() => {
-        refreshData();
+        onDelete();
       })
       .catch((error) => {
         console.error("Error deleting announcement:", error);
