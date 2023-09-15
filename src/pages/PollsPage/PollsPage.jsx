@@ -8,12 +8,6 @@ import PollCard from "../../components/PollCard/PollCard";
 function PollsPage() {
   const [polls, setPolls] = useState([]);
   const {user} = useContext(AuthContext)
-
-  function handlePollDeletion(deletedPollId) {
-    const updatedPolls = polls.filter(poll => poll._id !== deletedPollId);
-    setPolls(updatedPolls);
-  }
-
   useEffect(() => {
     const fetchPolls = async () => {
       try {
@@ -32,7 +26,7 @@ function PollsPage() {
       <h1>Ongoing Polls</h1>
       <div className="poll-list">
         {polls.map((poll) => (
-          <PollCard key={poll._id} poll={poll} onDelete={handlePollDeletion} />
+          <PollCard key={poll._id} poll={poll} />
         ))}
       </div>
       <Link to='/new-poll'>Open new poll...</Link>
