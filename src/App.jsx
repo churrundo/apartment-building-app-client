@@ -81,7 +81,7 @@ function App() {
           }
         />
         <Route
-        path="/directory"
+        path="/neighbors-directory"
         element={
           <IsPrivate>
             <NeighborDirectoryPage/>

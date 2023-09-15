@@ -20,18 +20,15 @@
     margin-top: 0;
 }
 
+.neighbor-card section{
+    text-align: left;
+}
+
 .neighbor-card p {
     margin: 10px 0;
 }
 
-.neighbor-card .hidden-details {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
+.neighbor-card:hover {
+    background-color: #f8f8f8;
 }
 
-.neighbor-card.expanded .hidden-details {
-    max-height: 500px; /* Adjust as needed for your content */
-}
-
-/* ... other styles as needed ... */

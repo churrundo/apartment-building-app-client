@@ -13,6 +13,7 @@ import {
   ListGroup,
   FormControl,
 } from "react-bootstrap";
+import "./DashboardPage.css"
 import { Link } from "react-router-dom";
 
 function DashboardPage() {
@@ -70,10 +71,17 @@ function DashboardPage() {
   return (
     <Container fluid className="mt-4">
       <h3 className="mb-4">Welcome, {user.name}!</h3>
-      {hasBuilding && <p className="text-muted">Building ID: {user.buildingId}</p>}
+      {hasBuilding && (
+        <p className="text-muted">Building ID: {user.buildingId}</p>
+      )}
+      {hasBuilding && (
+        <Button as={Link} to="/neighbors-directory" className="mb-4">
+          View Neighbor Directory
+        </Button>
+      )}
       {hasBuilding ? (
         <Row>
-          <Col md={6}>
+        <Col md={6} className="dashboard-col">
             <Card className="mb-4">
               <Card.Header>Recent Announcements</Card.Header>
               <Card.Body>
@@ -96,7 +104,7 @@ function DashboardPage() {
               </Card.Body>
             </Card>
           </Col>
-          <Col md={6}>
+          <Col md={6} className="dashboard-col">
             <Card>
               <Card.Header>Ongoing Polls</Card.Header>
               <Card.Body>

@@ -15,8 +15,10 @@
 
 .neighbor-list {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 15px;
 }
 
 .neighbor-card {
@@ -25,6 +27,9 @@
     background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 8px;
+}
+.neighbor-list {
+    row-gap: 15px;
 }
 
 .neighbor-card img {
@@ -36,6 +41,7 @@
 
 .skills {
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .skill-tag {
@@ -45,4 +51,46 @@
     border-radius: 20px;
     font-size: 12px;
     margin-right: 5px;
+}
+
+.expanded-content {
+    max-height: 400px;
+    overflow-y: auto;
+    font-size: 0.8em;
+    padding: 10px 0;
+    text-align: left;
+}
+
+.neighbor-directory h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 20px 0;
+    color: #777;
+}
+
+.neighbor-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    z-index: 2;
+}
+
+.search-input {
+    padding-left: 30px;
 }
