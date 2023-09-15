@@ -10,8 +10,6 @@ import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import NewBuildingPage from "./pages/DashboardPage/NewBuildingPage/NewBuildingPage";
 import AnnouncementsPage from "./pages/AnnouncementsPage/AnnouncementsPage";
 import PollsPage from "./pages/PollsPage/PollsPage";
-import NewPollForm from "./pages/PollsPage/NewPollForm/NewPollForm";
-import NewAnnouncementForm from "./pages/AnnouncementsPage/NewAnnouncementForm/NewAnnouncementForm";
 import NeighborDirectoryPage from "./pages/NeighborDirectoryPage/NeighborDirectoryPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
@@ -89,22 +87,6 @@ function App() {
             <NeighborDirectoryPage/>
           </IsPrivate>
         }
-        />
-        <Route
-          path="/new-poll"
-          element={
-            <IsPrivate>
-              <NewPollForm />
-            </IsPrivate>
-          }
-        />
-        <Route
-          path="/new-announcement"
-          element={
-            <IsPrivate>
-              <NewAnnouncementForm />
-            </IsPrivate>
-          }
         />
         <Route path="/not-found" element={<NotFoundPage />} />
       </Routes>
