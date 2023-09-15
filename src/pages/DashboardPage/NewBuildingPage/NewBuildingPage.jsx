@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../../../context/auth.context";
 import buildingService from "../../../services/building.service";
 import userService from "../../../services/users.service";
+import { Form, Button, Container, Alert } from "react-bootstrap";
 
 function NewBuildingPage() {
   const [buildingAddress, setBuildingAddress] = useState("");
@@ -27,7 +28,7 @@ function NewBuildingPage() {
             residence: { building: newBuildingId },
           })
           .then(() => {
-            logOutUser()
+            logOutUser();
           });
       })
       .catch((error) => {
@@ -36,27 +37,40 @@ function NewBuildingPage() {
   };
 
   return (
-    <div>
-      <h2>Create New Building (you'll be logged out. just log back in)</h2>
-      <form onSubmit={handleBuildingSubmit}>
-        <label>Building Address:</label>
-        <input
-          type="text"
-          value={buildingAddress}
-          onChange={(e) => setBuildingAddress(e.target.value)}
-        />
+    <Container className="my-4">
+      <h2 className="mb-4">Create New Building</h2>
+      <p className="text-muted">(you'll be logged out. just log back in)</p>
+      <Form onSubmit={handleBuildingSubmit}>
+        <Form.Group>
+          <Form.Label>Building Address:</Form.Label>
+          <Form.Control
+            type="text"
+            value={buildingAddress}
+            onChange={(e) => setBuildingAddress(e.target.value)}
+            placeholder="Enter Building Address"
+          />
+        </Form.Group>
 
-        <label>Total Apartments:</label>
-        <input
-          type="number"
-          value={totalApartments}
-          onChange={(e) => setTotalApartments(e.target.value)}
-        />
+        <Form.Group>
+          <Form.Label>Total Apartments:</Form.Label>
+          <Form.Control
+            type="number"
+            value={totalApartments}
+            onChange={(e) => setTotalApartments(e.target.value)}
+            placeholder="Enter Total Apartments"
+          />
+        </Form.Group>
 
-        <button type="submit">Create Building</button>
-      </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-    </div>
+        <Button variant="primary" type="submit">
+          Create Building
+        </Button>
+      </Form>
+      {errorMessage && (
+        <Alert variant="danger" className="mt-3">
+          {errorMessage}
+        </Alert>
+      )}
+    </Container>
   );
 }
 
