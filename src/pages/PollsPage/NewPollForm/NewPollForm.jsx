@@ -1,15 +1,13 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import {AuthContext} from "../../../context/auth.context"
+import { Modal, Button, Form } from 'react-bootstrap';
+import { AuthContext } from "../../../context/auth.context";
 import pollService from "../../../services/polls.service";
-import "./NewPollForm.css";
 
-function NewPollForm() {
+function NewPollForm({ show, handleClose }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [options, setOptions] = useState(["", ""]);
-  const navigate = useNavigate();
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const userId = user._id;
 
   const handleAddOption = () => {
@@ -40,58 +38,67 @@ function NewPollForm() {
     };
     console.log(formData);
     await pollService.createPoll(formData);
-    navigate("/polls");
+    handleClose();
   };
 
   return (
-    <div>
-      <h2>Create New Poll</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Title: </label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Description: </label>
-          <textarea
-            rows="3"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-        {options.map((option, index) => (
-          <div key={index}>
-            <label>Option {index + 1}:</label>
-            <input
+    <Modal show={show} onHide={handleClose} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Create New Poll</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group>
+            <Form.Label>Title</Form.Label>
+            <Form.Control
               type="text"
-              value={option}
-              placeholder="..."
-              onChange={(e) => handleOptionChange(e, index)}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
-            <button
-              className="remove-button"
-              onClick={() => removeOption(index)}
-              disabled={options.length <= 2}
-              style={
-                options.length <= 2
-                  ? { backgroundColor: "gray", cursor: "not-allowed" }
-                  : {}
-              }
-            >
-              Remove
-            </button>
-          </div>
-        ))}
-        <button type="button" onClick={handleAddOption}>
-          Add Option
-        </button>
-        <button type="submit">Create Poll</button>
-      </form>
-    </div>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </Form.Group>
+          {options.map((option, index) => (
+            <Form.Group key={index}>
+              <Form.Label>Option {index + 1}</Form.Label>
+              <Form.Control
+                type="text"
+                value={option}
+                placeholder="..."
+                onChange={(e) => handleOptionChange(e, index)}
+              />
+              <Button
+                variant="danger"
+                size="sm"
+                className="mt-2"
+                onClick={() => removeOption(index)}
+                disabled={options.length <= 2}
+              >
+                Remove
+              </Button>
+            </Form.Group>
+          ))}
+          <Button variant="primary" className="mt-2" onClick={handleAddOption}>
+            Add Option
+          </Button>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={handleSubmit}>
+          Create Poll
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 }
 

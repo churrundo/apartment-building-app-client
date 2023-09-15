@@ -15,6 +15,6 @@
 }
 
 .mb-3 {
-    min-width: 500px; /* or whatever maximum width you prefer */
+    max-width: 500px; /* or whatever maximum width you prefer */
     margin: 0 auto; /* centers the card within the Col */
   }

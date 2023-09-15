@@ -1,11 +1,13 @@
 import React, { useState, useContext } from "react";
 import pollService from "../../../services/polls.service";
 import { AuthContext } from "../../../context/auth.context";
+import { Button, Card, ProgressBar } from "react-bootstrap";
 import "./PollCard.css";
 
 function PollCard({ poll }) {
   const [currentPoll, setCurrentPoll] = useState(poll);
   const [voteAcknowledged, setVoteAcknowledged] = useState(false);
+  // eslint-disable-next-line
   const [votedOption, setVotedOption] = useState(null);
   const { user } = useContext(AuthContext);
 
@@ -48,70 +50,58 @@ function PollCard({ poll }) {
     }
   };
 
-  const getWinningOptionId = () => {
-    let maxVotes = -1;
-    let winningOptionId = null;
-
-    currentPoll.options.forEach((option) => {
-      if (option.votes > maxVotes) {
-        maxVotes = option.votes;
-        winningOptionId = option._id;
-      }
-    });
-
-    return winningOptionId;
-  };
-
-  const winningOptionId = getWinningOptionId();
-
   return (
-    <div className="poll-card">
-      <h2>{currentPoll.title}</h2>
-      <p>{currentPoll.description}</p>
-      {voteAcknowledged && (
-        <div className="vote-acknowledgement">Thanks for voting!</div>
-      )}
+    <Card className="mb-3" md={6} lg={4} xl={3}>
+      <Card.Header>
+        <h2>{currentPoll.title}</h2>
+      </Card.Header>
+      <Card.Body>
+        <Card.Text>{currentPoll.description}</Card.Text>
+        {voteAcknowledged && (
+          <div className="alert alert-success">Thanks for voting!</div>
+        )}
 
-      <div className="options-container">
         {currentPoll.options.map((option) => (
-          <div
-            key={option._id}
-            className={`option 
-            ${
-              option._id === winningOptionId && currentPoll.status === "Closed"
-                ? "winning-option"
-                : ""
-            } 
-            ${
-              userHasVoted && option._id === votedOption ? "option-voted" : ""
-            }`}
-          >
-            <span>{option.optionText}</span>
-            <span>
+          <div key={option._id}>
+            <Card.Text>
+              {option.optionText} -
               {totalVotes === 0
                 ? "0.00%"
                 : ((option.votes / totalVotes) * 100).toFixed(2)}
               %
-            </span>
-            {currentPoll.status === "Open" ? (
-              <button
+            </Card.Text>
+            <ProgressBar
+              now={(option.votes / totalVotes) * 100}
+              label={`${(option.votes / totalVotes) * 100}%`}
+            />
+            {currentPoll.status === "Open" && (
+              <Button
+                variant="primary"
+                size="sm"
+                className="mt-2"
                 onClick={() => handleVote(option._id)}
                 disabled={userHasVoted}
               >
                 Vote
-              </button>
-            ) : (
-              <span>Closed</span>
+              </Button>
+            )}
+            {currentPoll.status === "Closed" && (
+              <span className="text-muted">Closed</span>
             )}
           </div>
         ))}
-      </div>
+      </Card.Body>
       {currentPoll.createdBy === user._id && currentPoll.status === "Open" && (
-        <button onClick={() => handleClosePoll(currentPoll._id)}>
-          Close Poll
-        </button>
+        <Card.Footer>
+          <Button
+            variant="danger"
+            onClick={() => handleClosePoll(currentPoll._id)}
+          >
+            Close Poll
+          </Button>
+        </Card.Footer>
       )}
-    </div>
+    </Card>
   );
 }
 
