@@ -88,11 +88,6 @@ function DashboardPage() {
                         </ListGroup.Item>
                       ))}
                     </ListGroup>
-
-                    <Button variant="link" as={Link} to="/new-announcement">
-                      Post an announcement
-                    </Button>
-
                     <Button variant="link" as={Link} to="/announcements">
                       See all
                     </Button>
@@ -116,11 +111,6 @@ function DashboardPage() {
                         </ListGroup.Item>
                       ))}
                     </ListGroup>
-
-                    <Button variant="link" as={Link} to="/new-polls">
-                      Post an announcement
-                    </Button>
-
                     <Button variant="link" as={Link} to="/polls">
                       See all
                     </Button>

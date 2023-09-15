@@ -55,6 +55,7 @@ function AnnouncementsPage() {
 
   useEffect(() => {
     fetchAnnouncements();
+    // eslint-disable-next-line
   }, []);
 
   return (

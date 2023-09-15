@@ -1,74 +1,7 @@
-/* Main Detail Styles */
-.detail-component {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    border-bottom: 1px solid #e0e0e0;
-    padding: 10px 0;
-    font-family: Arial, sans-serif;
-    position: relative;
-}
-
-.detail-label {
-    flex: 1;
-    color: #555;
-    font-weight: 600;
-}
-
-.detail-value {
-    flex: 2;
-    color: #333;
-}
-
-.detail-input {
-    flex: 2;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
+.detail-value-container {
+    padding: 8px;
+    background-color: #f8f9fa; /* Light gray background similar to Bootstrap's form controls */
+    border: 1px solid #ced4da; /* Border similar to Bootstrap's form controls */
     border-radius: 5px;
 }
 
-.detail-edit-button,
-.detail-save-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.detail-save-button {
-    background-color: #28a745; /* Green */
-}
-
-.detail-edit-button:hover,
-.detail-save-button:hover {
-    opacity: 0.9;
-}
-
-/* Responsive Styles */
-@media (max-width: 375px) {
-    .detail-component {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .detail-label,
-    .detail-value,
-    .detail-input {
-        width: 100%;
-        margin-bottom: 5px;
-    }
-
-    .detail-edit-button,
-    .detail-save-button {
-        position: initial;
-        transform: none;
-        margin-top: 5px;
-    }
-}

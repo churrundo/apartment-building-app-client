@@ -61,12 +61,22 @@ function ProfilePage() {
   };
 
   const handleSave = (key, value) => {
-    const updatedDetails = { ...details, [key]: value };
-    setDetails(updatedDetails);
+    let updatedDetails;
+    if (key.includes(".")) {
+      const keys = key.split(".");
+      updatedDetails = { ...details };
+      let temp = updatedDetails;
+      for (let i = 0; i < keys.length - 1; i++) {
+        temp = temp[keys[i]];
+      }
+      temp[keys[keys.length - 1]] = value;
+    } else {
+      updatedDetails = { ...details, [key]: value };
+    }
 
-    // Update the backend using updateUser function
+    setDetails(updatedDetails);
     userService
-      .updateUser(user._id, {details:updatedDetails})
+      .updateUser(user._id, { details: updatedDetails })
       .then((response) => {
         console.log(response.data);
       })
@@ -83,9 +93,9 @@ function ProfilePage() {
 
     // Update the backend using updateUser function
     userService
-      .updateUser(user._id, {details: updatedAvailability})
+      .updateUser(user._id, { details: updatedAvailability })
       .then((response) => {
-        console.log(response.message)
+        console.log(response.message);
       })
       .catch((error) => {
         console.error("Error updating availability", error);
@@ -239,7 +249,11 @@ function ProfilePage() {
           <Detail
             label="Special Skills"
             valueKey="specialSkills"
-            value={details.specialSkills.join(", ")}
+            value={
+              Array.isArray(details.specialSkills)
+                ? details.specialSkills.join(", ")
+                : details.specialSkills
+            }
             editing={editing}
             handleEdit={handleEdit}
             handleSave={handleSave}
@@ -298,7 +312,11 @@ function ProfilePage() {
           <Detail
             label="Languages"
             valueKey="languagesSpoken"
-            value={details.languagesSpoken.join(", ")}
+            value={
+              Array.isArray(details.languagesSpoken)
+                ? details.languagesSpoken.join(", ")
+                : details.languagesSpoken
+            }
             editing={editing}
             handleEdit={handleEdit}
             handleSave={(key, value) =>
