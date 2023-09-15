@@ -1,28 +1,27 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import { Container } from 'react-bootstrap';
 
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
-import NewBuildingPage from "./pages/NewBuildingPage/NewBuildingPage";
+import NewBuildingPage from "./pages/DashboardPage/NewBuildingPage/NewBuildingPage";
 import AnnouncementsPage from "./pages/AnnouncementsPage/AnnouncementsPage";
 import PollsPage from "./pages/PollsPage/PollsPage";
-import NewPollForm from "./pages/NewPollForm/NewPollForm";
-import NewAnnouncementForm from "./pages/NewAnnouncementForm/NewAnnouncementForm"
+import NeighborDirectoryPage from "./pages/NeighborDirectoryPage/NeighborDirectoryPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
-import Navbar from "./components/Navbar/Navbar";
+import NavbarComponent from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
-import NeighborDirectoryPage from "./pages/NeighborDirectoryPage/NeighborDirectoryPage";
 
 function App() {
   return (
-    <div className="App">
-      {<Navbar />}
-
+    <div className="App d-flex flex-column">
+      <Container fluid className = "d-flex flex-column px-0 min-vh-100">
+      {<NavbarComponent />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
@@ -82,31 +81,16 @@ function App() {
           }
         />
         <Route
-        path="/directory"
+        path="/neighbors-directory"
         element={
           <IsPrivate>
             <NeighborDirectoryPage/>
           </IsPrivate>
         }
         />
-        <Route
-          path="/new-poll"
-          element={
-            <IsPrivate>
-              <NewPollForm />
-            </IsPrivate>
-          }
-        />
-        <Route
-          path="/new-announcement"
-          element={
-            <IsPrivate>
-              <NewAnnouncementForm />
-            </IsPrivate>
-          }
-        />
         <Route path="/not-found" element={<NotFoundPage />} />
       </Routes>
+      </Container>
     </div>
   );
 }

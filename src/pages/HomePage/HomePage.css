@@ -1,73 +1,16 @@
-.homepage-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-}
-
-.hero{
+.hero {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.hero p{
-    max-width: 300px;
-}
 
-img{
-    max-width: 400px;
-    height: auto;
-}
-
-.homepage-header {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 20px;
-    background-color: #333;
-    color: white;
-}
-
-.cta-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.cta-signup, .cta-login {
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.cta-signup {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.cta-login {
-    background-color: #333;
-    color: white;
-}
-
-.cta-signup:hover {
-    background-color: #45a049;
-}
-
-.cta-login:hover {
-    background-color: #ddd;
-}
-
-.homepage-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+.hero-image {
+    max-width: 400px;  
+    margin: 0 auto;
 }
 
 .homepage-footer {
+    position: sticky;
     width: 100%;
     padding: 10px;
     background-color: #333;
@@ -75,24 +18,13 @@ img{
     text-align: center;
 }
 
-@media (max-width: 375px) { /* Adjust this value based on your design's breakpoint */
-    .homepage-header {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .cta-buttons {
-        margin-top: 10px;
-    }
-
+@media (max-width: 375px) {
     .homepage-main h2 {
-        font-size: 24px; /* Decrease headline size for mobile */
+        font-size: 24px;
     }
 
     .homepage-main p {
         text-align: center;
-        padding: 0 15px; /* Give some padding to the sides for better readability */
+        padding: 0 15px;
     }
-
-    
 }

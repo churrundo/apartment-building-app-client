@@ -1,0 +1,50 @@
+.poll-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.poll-card h2 {
+  margin-top: 0;
+}
+
+.options-container {
+  margin-top: 10px;
+}
+
+.option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.winning-option {
+  background-color: #88e788;
+}
+
+.option button {
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.option button:hover {
+  background-color: #0056b3;
+}
+
+.poll-card .vote-acknowledgement {
+  color: #007bff;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.option-voted {
+  background-color: #f2f2f2;
+}

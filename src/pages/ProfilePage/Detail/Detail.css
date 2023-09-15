@@ -1,0 +1,7 @@
+.detail-value-container {
+    padding: 8px;
+    background-color: #f8f9fa; /* Light gray background similar to Bootstrap's form controls */
+    border: 1px solid #ced4da; /* Border similar to Bootstrap's form controls */
+    border-radius: 5px;
+}
+

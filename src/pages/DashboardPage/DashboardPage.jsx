@@ -1,9 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
-import "./DashboardPage.css";
 import { AuthContext } from "../../context/auth.context";
 import AnnouncementService from "../../services/announcements.service";
 import PollService from "../../services/polls.service";
 import BuildingService from "../../services/building.service";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Alert,
+  ListGroup,
+  FormControl,
+} from "react-bootstrap";
+import "./DashboardPage.css"
 import { Link } from "react-router-dom";
 
 function DashboardPage() {
@@ -48,79 +58,107 @@ function DashboardPage() {
   const handleJoinBuilding = (buildingId) => {
     console.log(`Adding user ${user._id} to building ${buildingId}`);
     BuildingService.addUserToBuilding(buildingId, user._id)
-    .then(response => {
-      console.log("response data:",response.data.authToken);
-      // 1. Store the new token
-      storeToken(response.data.authToken);
-      authenticateUser();
-    })
-    .catch((error) => {
-      setErrorMessage(error.message);
-    });
+      .then((response) => {
+        console.log("response data:", response.data.authToken);
+        storeToken(response.data.authToken);
+        authenticateUser();
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
   };
 
   return (
-    <div className="dashboard">
-      <div className="dashboard-header">Welcome, {user.name}!</div>
-      {hasBuilding ? (
-        <div className="dashboard-content">
-          <section className="recent-announcements">
-            <h2>Recent Announcements</h2>
-            <a href="/new-announcement">Post an announcement</a>
-            {announcementError ? (
-              <div className="error-message">{announcementError}</div>
-            ) : (
-              <>
-                {announcements.map((announcement) => (
-                  <div className="dashboard-item" key={announcement._id}>
-                    {announcement.title}
-                  </div>
-                ))}
-                <a href="/announcements">see all</a>
-              </>
-            )}
-          </section>
-
-          <section className="ongoing-polls">
-            <h2>Ongoing Polls</h2>
-            <a href="/new-poll">Open a poll</a>
-            {pollsError ? (
-              <div className="error-message">{pollsError}</div>
-            ) : (
-              <>
-                {polls.map((poll) => (
-                  <div className="dashboard-item" key={poll._id}>
-                    {poll.title}
-                  </div>
-                ))}
-                <a href="/polls">see all</a>
-              </>
-            )}
-          </section>
-          <div className="directory-link">
-            <Link to="/directory">Go to Neighbor Directory</Link>
-          </div>
-        </div>
-      ) : (
-        <div className="no-building-notice">
-          {errorMessage && <div className="error-message">{errorMessage}</div>}
-          You're not associated with any building.
-          <div>
-            Enter a Building ID to join:
-            <input
-              type="text"
-              placeholder="Enter Building ID"
-              value={buildingId}
-              onChange={(e) => setBuildingId(e.target.value)}
-            />
-            <button onClick={()=>{handleJoinBuilding(buildingId)}}>Join</button>
-          </div>
-          <div>
-            or <a href="/create-building">create a new one</a>.
-          </div>
-        </div>
+    <Container fluid className="mt-4">
+      <h3 className="mb-4">Welcome, {user.name}!</h3>
+      {hasBuilding && (
+        <p className="text-muted">Building ID: {user.buildingId}</p>
       )}
-    </div>
+      {hasBuilding && (
+        <Button as={Link} to="/neighbors-directory" className="mb-4">
+          View Neighbor Directory
+        </Button>
+      )}
+      {hasBuilding ? (
+        <Row>
+        <Col md={6} className="dashboard-col">
+            <Card className="mb-4">
+              <Card.Header>Recent Announcements</Card.Header>
+              <Card.Body>
+                {announcementError ? (
+                  <div className="error-message">{announcementError}</div>
+                ) : (
+                  <>
+                    <ListGroup variant="flush">
+                      {announcements.map((announcement) => (
+                        <ListGroup.Item key={announcement._id}>
+                          {announcement.title}
+                        </ListGroup.Item>
+                      ))}
+                    </ListGroup>
+                    <Button variant="link" as={Link} to="/announcements">
+                      See all
+                    </Button>
+                  </>
+                )}
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md={6} className="dashboard-col">
+            <Card>
+              <Card.Header>Ongoing Polls</Card.Header>
+              <Card.Body>
+                {pollsError ? (
+                  <div className="error-message">{pollsError}</div>
+                ) : (
+                  <>
+                    <ListGroup variant="flush">
+                      {polls.map((polls) => (
+                        <ListGroup.Item key={polls._id}>
+                          {polls.title}
+                        </ListGroup.Item>
+                      ))}
+                    </ListGroup>
+                    <Button variant="link" as={Link} to="/polls">
+                      See all
+                    </Button>
+                  </>
+                )}
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      ) : (
+        <Card className="mx-auto mt-5" style={{ maxWidth: "600px" }}>
+          <Card.Body className="text-center">
+            {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+
+            <Card.Text>You're not associated with any building.</Card.Text>
+
+            <div className="d-flex mb-3">
+              <FormControl
+                type="text"
+                placeholder="Enter Building ID"
+                value={buildingId}
+                onChange={(e) => setBuildingId(e.target.value)}
+                className="mr-2"
+              />
+              <Button onClick={() => handleJoinBuilding(buildingId)}>
+                Join
+              </Button>
+            </div>
+
+            <Card.Text>
+              or{" "}
+              <Button variant="link" as={Link} to="/create-building">
+                create a new one
+              </Button>
+              .
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      )}
+    </Container>
   );
 }
 
