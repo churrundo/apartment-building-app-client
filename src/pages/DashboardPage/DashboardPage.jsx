@@ -13,25 +13,31 @@ import {
   ListGroup,
   FormControl,
 } from "react-bootstrap";
-import "./DashboardPage.css"
-import { Link } from "react-router-dom";
+import "./DashboardPage.css";
+import { Link, useLocation } from "react-router-dom";
 
 function DashboardPage() {
+  const [buildingId, setBuildingId] = useState("");
+  const [hasBuilding, setHasBuilding] = useState(false);
   const [announcements, setAnnouncements] = useState([]);
   const [polls, setPolls] = useState([]);
-  const [hasBuilding, setHasBuilding] = useState(false);
-  const [buildingId, setBuildingId] = useState("");
   const [announcementError, setAnnouncementError] = useState(null);
   const [pollsError, setPollsError] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const { user, storeToken, authenticateUser } = useContext(AuthContext);
 
+  const location = useLocation();
+
   console.log("context.user.buildingID:", user.buildingId);
 
   useEffect(() => {
-    const currentBuildingId = user.buildingId;
+    const currentBuildingId = location.state
+      ? location.state.buildingId
+      : user.buildingId;
+
     if (currentBuildingId) {
       setHasBuilding(true);
+      setBuildingId(currentBuildingId);
 
       AnnouncementService.getAnnouncementsByBuilding(currentBuildingId)
         .then((response) => {
@@ -43,7 +49,7 @@ function DashboardPage() {
           console.log(error.message);
         });
 
-      PollService.getPollsByBuilding(currentBuildingId)
+      PollService.getPollsByBuilding(buildingId)
         .then((response) => {
           response.data
             ? setPolls(response.data)
@@ -53,7 +59,8 @@ function DashboardPage() {
           console.log(error.message);
         });
     }
-  }, [user]);
+    // eslint-disable-next-line
+  }, [user, location.state, buildingId]);
 
   const handleJoinBuilding = (buildingId) => {
     console.log(`Adding user ${user._id} to building ${buildingId}`);
@@ -81,7 +88,7 @@ function DashboardPage() {
       )}
       {hasBuilding ? (
         <Row>
-        <Col md={6} className="dashboard-col">
+          <Col md={6} className="dashboard-col">
             <Card className="mb-4">
               <Card.Header>Recent Announcements</Card.Header>
               <Card.Body>
