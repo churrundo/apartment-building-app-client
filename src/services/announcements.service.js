@@ -4,7 +4,8 @@ const announcementService = {
   createAnnouncement: (formData) =>
     service.post("/api/announcements", formData),
   getAllAnnouncements: () => service.get("/api/announcements"),
-  getAnnouncementsByBuilding: (buildingId) => service.get(`/api/announcements?buildingId=${buildingId}`),
+  getAnnouncementsByBuilding: (buildingId) =>
+    service.get(`/api/announcements?buildingId=${buildingId}`),
   getAnnouncement: (announcementId) =>
     service.get(`/api/announcements/${announcementId}`),
   updateAnnouncement: (announcementId, formData) =>

@@ -26,9 +26,7 @@ function LoginPage() {
       .then((response) => {
         storeToken(response.data.authToken);
         authenticateUser();
-        console.log("About to redirect to dashboard...");
         navigate("/dashboard");
-        console.log("Redirection command issued.");
       })
       .catch((error) => {
         const errorDescription = error.response.data.message;
