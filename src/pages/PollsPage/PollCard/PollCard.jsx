@@ -66,13 +66,21 @@ function PollCard({ poll }) {
             <Card.Text>
               {option.optionText} -
               {totalVotes === 0
-                ? "0.00%"
+                ? "0.00"
                 : ((option.votes / totalVotes) * 100).toFixed(2)}
               %
             </Card.Text>
             <ProgressBar
-              now={(option.votes / totalVotes) * 100}
-              label={`${(option.votes / totalVotes) * 100}%`}
+              now={
+                totalVotes === 0
+                  ? "0.00"
+                  : ((option.votes / totalVotes) * 100).toFixed(2)
+              }
+              label={
+                totalVotes === 0
+                  ? "0.00"
+                  : `${((option.votes / totalVotes) * 100).toFixed(2)}%`
+              }
             />
             {currentPoll.status === "Open" && (
               <Button
